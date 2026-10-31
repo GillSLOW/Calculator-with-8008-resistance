@@ -3,6 +3,10 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
+def signingProps = new Properties()
+def signingFile = rootProject.file('keystore/signing.properties')
+if (signingFile.exists()) signingFile.withInputStream { signingProps.load(it) }
+
 android {
     namespace 'com.hotscan.calc'
     compileSdk 34
@@ -11,12 +15,25 @@ android {
         applicationId "com.hotscan.calc"
         minSdk 24
         targetSdk 34
-        versionCode 1
-        versionName "1.0"
+        // CI sets BUILD_NUMBER so each GitHub build installs as an update
+        versionCode((System.getenv("BUILD_NUMBER") ?: "1").toInteger())
+        versionName "1.0." + (System.getenv("BUILD_NUMBER") ?: "0")
+    }
+
+    signingConfigs {
+        release {
+            if (signingFile.exists()) {
+                storeFile file(signingProps['storeFile'])
+                storePassword signingProps['storePassword']
+                keyAlias signingProps['keyAlias']
+                keyPassword signingProps['keyPassword']
+            }
+        }
     }
 
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
