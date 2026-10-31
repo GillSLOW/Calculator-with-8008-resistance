@@ -1,0 +1,15 @@
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="calc_bg">#FF0F0F0F</color>
+    <color name="calc_display">#FFFFFFFF</color>
+    <color name="digit_bg">#FF2B2B2B</color>
+    <color name="digit_text">#FFFFFFFF</color>
+    <color name="op_bg">#FFFF9800</color>
+    <color name="op_text">#FFFFFFFF</color>
+    <color name="func_bg">#FF5A5A5A</color>
+    <color name="func_text">#FFFFFFFF</color>
+    <color name="accent">#FF1565C0</color>
+    <color name="scan_bg">#FF101418</color>
+    <color name="scan_text">#FFB0F0C0</color>
+</resources>
